@@ -1,4 +1,4 @@
-#include "part1.h"
+#include "analyzer.h"
 
 #include <fstream>
 #include <iomanip>
@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 
 int main() {
     //read file
@@ -21,11 +22,33 @@ int main() {
         }
         reports.push_back(lineVec);
     }
+
+    int safeLines1{0};
+    for (const auto &report: reports) {
+        if (isReportSafe(report)) ++safeLines1;
+    }
     //iterate over each line and determine if the difference is always less than 3 and if it is only ascendig or descendig (no changes on one line allowed)
     std::cout << std::left;
-    std::cout << std::setw(30) << "First part: " << analyzeReports(reports) << std::endl;
+    std::cout << std::setw(30) << "First part: " << safeLines1 << std::endl;
 
     int safeLines2{0};
+    for (const auto &report: reports) {
+        if (isReportSafe(report)) {
+            ++safeLines2;
+            continue;
+        }
+
+        bool anySafe{false};
+        for (int i = 0; i < report.size(); ++i) {
+            std::vector<int> subVec = report;
+            subVec.erase(subVec.begin() + i);
+            if (isReportSafe(subVec)) {
+                anySafe = true;
+                break;
+            }
+        }
+        if (anySafe) ++safeLines2;
+    }
     //iterate over each line and determine if the difference is always less than 3 and if it is only ascendig or descendig (no changes on one line allowed)
-    std::cout << std::setw(30) << "Second part: " << "0" << std::endl;
+    std::cout << std::setw(30) << "Second part: " << safeLines2 << std::endl;
 }
