@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "part2.h"
+
 
 int main() {
     //load data into 2d vector
@@ -15,6 +17,7 @@ int main() {
     }
 
     solvePart1(charGrid);
+    solvePart2(charGrid);
 
     return 0;
 }

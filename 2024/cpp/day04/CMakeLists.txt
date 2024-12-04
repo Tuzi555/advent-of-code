@@ -4,4 +4,5 @@ project(day04)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(day04 main.cpp
-        part1.cpp)
+        part1.cpp
+        part2.cpp)
